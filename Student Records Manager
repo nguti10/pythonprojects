@@ -1,0 +1,75 @@
+#Written by: Nate Gutierrez
+
+# create dictionary
+student_records = {}
+
+# create functions add_student
+def add_student(name, age, courses):
+    if name in student_records:
+        print(f"Student '{name}' already exists.")
+    else:
+        student_records[name] = {
+            "age": age,
+            "grades": set(),
+            "courses": set(courses)
+        }
+        print(f"Student '{name}' added successfully.")
+
+# create function add_grade
+def add_grade(name, grade):
+    if name not in student_records:
+        print(f"Student '{name}' not found.")
+    else:
+        student_records[name]['grades'].add(grade)
+        print(f"Grade {grade} added for student '{name}'.")
+
+# create function is_enrolled
+def is_enrolled(name, course):
+    if name not in student_records:
+        print(f"Student '{name}' not found.")
+        return False
+    else:
+        if course in student_records[name]["courses"]:
+            return True
+        if course not in student_records[name]["courses"]:
+            return False
+
+# create function calculate_average_grade
+def calculate_average_grade(name):
+    if name not in student_records:
+        print(f"Student '{name}' not found.")
+        return None
+    else:
+        if len(student_records[name]["grades"]) != 0:
+            avggrade = sum(student_records[name]["grades"]) / len(student_records[name]["grades"])
+            return avggrade
+        else:
+            return 0
+
+# create function list_students_by_course
+def list_students_by_course(course):
+    bycourse = []
+    for name in student_records:
+        if course in student_records[name]["courses"]:
+            bycourse.append(name)
+    return bycourse
+
+# create a function filter_top_students
+def filter_top_students(threshold):
+    topstudents = []
+    for name in student_records:
+        if float(calculate_average_grade(name)) > threshold:
+            topstudents.append(name)
+    return topstudents
+
+# code to test functions
+add_student("Alice", 20, ["Math", "Physics"])
+add_student("Bob", 22, ["Math", "Biology"])
+add_student("Diana", 23, ["Chemistry", "Physics"])
+add_grade("Alice", 90)
+add_grade("Alice", 85)
+add_grade("Bob", 75)
+add_grade("Diana", 95)
+print(filter_top_students(80))  # Should return ["Alice", "Diana"]
+print(filter_top_students(90))  # Should return ["Diana"]
+print(filter_top_students(100))  # Should return an empty list

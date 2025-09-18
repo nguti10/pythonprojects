@@ -1,0 +1,62 @@
+# Daily Expense Tracker
+# Written by Nate Gutierrez
+
+# print menu
+print("Welcome to the Daily Expense Tracker!\n")
+
+print("Menu:")
+print("1. Add a new expense")
+print("2. View all expenses")
+print("3. Calculate total and average expense")
+print("4. Clear all expenses")
+print("5. Exit")
+
+# create list 
+expenses = []
+
+while True:
+    # Get user choice
+    choice = input()
+
+# create choices:
+
+    #CHOICE 1
+    if choice == "1":
+        try:
+            amount = float(input())
+            expenses.append(amount)
+            print("Expense added successfully!")
+        except:
+            print("invalid")
+
+    #CHOICE 2        
+    elif choice == "2":
+        if expenses == []:
+            print("No expenses recorded yet.")
+        else:
+            print("Your expenses:")
+            for i, expense in enumerate(expenses, start=1):
+                print(f"{i}. {expense}")
+
+    #CHOICE 3
+    elif choice == "3":
+        if expenses == []:   
+            print("No expenses recorded yet.")
+        else:
+            total_expense = sum(expenses)
+            average_exp = sum(expenses) / len(expenses)
+            print("Total expense:", total_expense)
+            print("Average expense:", average_exp)
+
+    #CHOICE 4
+    elif choice == "4":
+        expenses = []
+        print("All expenses cleared.") 
+
+    #CHOICE 5
+    elif choice == "5":
+        # Exit the program
+        print("Exiting the Daily Expense Tracker. Goodbye!")
+        break
+    else:
+        print("Invalid choice. Please try again.")
